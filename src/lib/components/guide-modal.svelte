@@ -20,7 +20,7 @@
 
 	const guidePages = [
 		{
-			img: 'guide_img_1.png',
+			img: 'guide1.png',
 			subtitle:
 				'The GigClimate platform is an early-stage technology exploration created by IST researchers. It aims to understand how food couriers collaborate and tackle extreme weather conditions together. We do not collect any private information. By using this platform, you agree to share tags, comments, and pictures with the community and research team. This platform is non-commercial and open to everyone.'
 		},
