@@ -51,7 +51,11 @@
 		<WeatherInfo isCurrentLocation coordinates={currentLocation} />
 	{/if}
 	{#if selectedLocation}
-		<WeatherInfo isCurrentLocation={false} coordinates={selectedLocation} />
+		<WeatherInfo
+			isCurrentLocation={false}
+			coordinates={selectedLocation}
+			on:close={() => (selectedLocation = undefined)}
+		/>
 	{/if}
 	{#if browser}
 		<div class="flex-1 h-full w-full relative">

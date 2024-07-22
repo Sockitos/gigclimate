@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Point } from '$lib/types';
 	import { getBackgroundColor } from '$lib/utils';
-	import { onMount } from 'svelte';
 
 	export let coordinates: Point;
 	export let isCurrentLocation = false;
@@ -99,10 +98,16 @@
 		}
 	}
 
-	onMount(getWeather);
-
 	$: if (coordinates) {
 		getWeather();
+	}
+
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	function onClose() {
+		dispatch('close');
 	}
 </script>
 
@@ -114,7 +119,7 @@
 		<div class="weather-info weather-title">
 			<span>{isCurrentLocation ? 'Current Location' : 'Selected Location'}</span>
 			{#if !isCurrentLocation}
-				<button class="close-btn" aria-label="Close">&times;</button>
+				<button class="close-btn" aria-label="Close" on:click={onClose}>&times;</button>
 			{/if}
 		</div>
 		<div class="weather-content">
