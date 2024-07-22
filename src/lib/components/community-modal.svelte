@@ -18,7 +18,7 @@
 		<div id="community-stats">
 			<div class="community-stat">
 				<img src="https://mashuhao.me/wp-content/uploads/2024/06/usertags-1.png" alt="Tags Icon" />
-				<span>Tags: ${tagCount}</span>
+				<span>Tags: {tagCount}</span>
 			</div>
 		</div>
 	</div>
