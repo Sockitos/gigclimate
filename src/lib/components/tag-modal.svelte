@@ -19,7 +19,6 @@
 				images: []
 			}
 		]);
-		console.log(error);
 		open = false;
 	}
 </script>
