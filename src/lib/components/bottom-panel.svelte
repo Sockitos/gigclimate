@@ -27,7 +27,7 @@
 	{:else}
 		<div id="no-tags">No Tags and Comments Yet</div>
 	{/if}
-	<button id="add-tags-btn" on:click={() => (openModal = true)}>Add Tags</button>
+	<button id="add-tags-btn" on:click={() => (openModal = true)}>Add Tags and Comments</button>
 </div>
 
 <TagModal bind:open={openModal} {location} />
@@ -63,7 +63,7 @@
 		overflow-y: auto;
 		width: 100%;
 		background: #ffffff;
-		border-top: 2px solid #ddd;
+		border-top: 1px solid #141414;
 		margin-bottom: 16px; /* 与按钮之间的间距 */
 		box-sizing: border-box; /* 使元素内边距和边框包含在宽度和高度内 */
 		display: flex;
@@ -98,5 +98,6 @@
 
 	#add-tags-btn:hover {
 		background-color: #45a049;
+		font-size: 16px;
 	}
 </style>
