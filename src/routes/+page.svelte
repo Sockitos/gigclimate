@@ -8,14 +8,34 @@
 	import MobileWarning from '$lib/components/mobile-warning.svelte';
 	import Notification from '$lib/components/notification.svelte';
 	import WeatherInfo from '$lib/components/weather-info.svelte';
+	import {
+		getFountainPoints,
+		getParksAndGardens,
+		getShoppingMalls,
+		getWaterPoints
+	} from '$lib/overpass';
 	import type { Point, Tag } from '$lib/types';
+	import type { FeatureCollection } from 'geojson';
 	import 'leaflet/dist/leaflet.css';
+	import { onMount } from 'svelte';
 	import { GeoJSON, Icon, LeafletMap, Marker, TileLayer } from 'svelte-leafletjs?client';
 
 	export let data;
 	export let form;
 
 	let map: LeafletMap;
+	let waterPoints: Point[] = [];
+	let fountainPoints: Point[] = [];
+	let shoppingMalls: Point[] = [];
+	let parksAndGardens: FeatureCollection | null;
+
+	onMount(async () => {
+		waterPoints = await getWaterPoints();
+		fountainPoints = await getFountainPoints();
+		shoppingMalls = await getShoppingMalls();
+		parksAndGardens = await getParksAndGardens();
+	});
+
 	let currentLocation: Point | undefined;
 	let selectedLocation: Point | undefined;
 	let selectedLocationLabel: string | undefined;
@@ -90,7 +110,7 @@
 					}}
 				/>
 				<GeoJSON
-					data={data.parksAndGardens}
+					data={parksAndGardens}
 					options={{
 						style: {
 							color: '#18C385',
@@ -117,7 +137,7 @@
 						/>
 					</Marker>
 				{/each}
-				{#each data.waterPoints as point}
+				{#each waterPoints as point}
 					<Marker
 						latLng={[point.lat, point.lon]}
 						events={['click']}
@@ -132,7 +152,7 @@
 						/>
 					</Marker>
 				{/each}
-				{#each data.fountainPoints as point}
+				{#each fountainPoints as point}
 					<Marker
 						latLng={[point.lat, point.lon]}
 						events={['click']}
@@ -147,7 +167,7 @@
 						/>
 					</Marker>
 				{/each}
-				{#each data.shoppingMalls as point}
+				{#each shoppingMalls as point}
 					<Marker
 						latLng={[point.lat, point.lon]}
 						events={['click']}
