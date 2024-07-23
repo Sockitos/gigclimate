@@ -69,7 +69,7 @@
 
 		function fetchElevation(lat: number, lon: number) {
 			const url = `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
-			return fetch(url, { cache: 'no-store' }) 
+			return fetch(url, { cache: 'no-store' })
 				.then((response) => response.json())
 				.then((data) => data.elevation)
 				.catch((error) => {
@@ -138,7 +138,7 @@
 	{:else if error}
 		{error}
 	{:else}
-		"Loading weather data..."
+		Loading weather data...
 	{/if}
 </div>
 

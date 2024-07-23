@@ -13,12 +13,21 @@
 	import { GeoJSON, Icon, LeafletMap, Marker, TileLayer } from 'svelte-leafletjs?client';
 
 	export let data;
+	export let form;
 
 	let map: LeafletMap;
 	let currentLocation: Point | undefined;
 	let selectedLocation: Point | undefined;
 	let selectedLocationLabel: string | undefined;
 	let selectedLocationTags: Tag[] = [];
+
+	$: if (form?.success) {
+		selectedLocation = undefined;
+	}
+
+	$: uniqueTags = data.tags.filter(
+		(tag, index, self) => index === self.findIndex((t) => t.lat === tag.lat && t.lon === tag.lon)
+	);
 
 	$: if (currentLocation) {
 		map.getMap()?.setView([currentLocation.lat, currentLocation.lon], 15);
@@ -92,7 +101,7 @@
 						}
 					}}
 				/>
-				{#each data.tags as tag}
+				{#each uniqueTags as tag}
 					<Marker
 						latLng={[tag.lat, tag.lon]}
 						events={['click']}
@@ -103,7 +112,7 @@
 							options={{
 								iconSize: [40, 40],
 								popupAnchor: [1, -34],
-								zIndexOffset: -500
+								zIndexOffset: -999999
 							}}
 						/>
 					</Marker>
@@ -133,8 +142,7 @@
 							iconUrl="https://mashuhao.me/wp-content/uploads/2024/06/fountain-1.png"
 							options={{
 								iconSize: [36, 36],
-								popupAnchor: [1, -10],
-								zIndexOffset: 3000
+								popupAnchor: [1, -10]
 							}}
 						/>
 					</Marker>
@@ -161,7 +169,7 @@
 							options={{
 								iconSize: [36, 36],
 								popupAnchor: [0, -16],
-								zIndexOffset: 3000
+								zIndexOffset: 999999
 							}}
 						/>
 					</Marker>
@@ -176,7 +184,8 @@
 								popupAnchor: [1, -34],
 								shadowUrl:
 									'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-								shadowSize: [41, 41]
+								shadowSize: [41, 41],
+								zIndexOffset: 999999
 							}}
 						/>
 					</Marker>
@@ -193,7 +202,7 @@
 	{/if}
 	<LocateButton bind:location={currentLocation} />
 	<GuideModal />
-	<CommunityModal tagCount={data.tags.length} />
+	<CommunityModal tagCount={uniqueTags.length} />
 	<CommentModal />
 </div>
 
