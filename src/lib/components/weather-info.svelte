@@ -5,18 +5,15 @@
 	export let coordinates: Point;
 	export let isCurrentLocation = false;
 
-	let weatherInfo:
-		| {
-				temperature: number;
-				windspeed: number;
-				weathercode: number;
-				elevation: number;
-		  }
-		| undefined;
-
-	$: backgroundColor = weatherInfo ? getBackgroundColor(weatherInfo.temperature) : undefined;
-
+	let loading = true;
 	let error: string | undefined;
+
+	let windspeed: number | undefined;
+	let temperature: number | undefined;
+	let weathercode: number | undefined;
+	let elevation: number | undefined;
+
+	$: backgroundColor = temperature ? getBackgroundColor(temperature) : undefined;
 
 	const weatherIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/06/sunny.png'; // 替换为实际的天气图标URL
 	const windIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/06/wind.png'; // 替换为实际的风速图标URL
@@ -54,7 +51,7 @@
 		99: 'Thunderstorm with heavy hail'
 	};
 
-	$: weatherDescription = weatherCodeMapping[weatherInfo?.weathercode ?? -1] || 'Unknown weather';
+	$: weatherDescription = weatherCodeMapping[weathercode ?? -1] || 'Unknown weather';
 
 	async function getWeather() {
 		const params = {
@@ -69,7 +66,7 @@
 
 		function fetchElevation(lat: number, lon: number) {
 			const url = `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
-			return fetch(url, { cache: 'no-store' }) 
+			return fetch(url, { cache: 'no-store' })
 				.then((response) => response.json())
 				.then((data) => data.elevation)
 				.catch((error) => {
@@ -81,15 +78,16 @@
 		try {
 			const weatherResponse = await fetch(weatherUrl);
 			const weatherData = await weatherResponse.json();
-			const elevation = await fetchElevation(coordinates.lat, coordinates.lon);
+			const elevationData = await fetchElevation(coordinates.lat, coordinates.lon);
 
 			if (weatherData && weatherData.current_weather) {
 				const weather = weatherData.current_weather;
-				const temperature = weather.temperature;
-				const windspeed = weather.windspeed;
-				const weathercode = weather.weathercode;
 
-				weatherInfo = { temperature, windspeed, weathercode, elevation };
+				temperature = weather.temperature;
+				windspeed = weather.windspeed;
+				weathercode = weather.weathercode;
+				elevation = elevationData;
+				loading = false;
 			} else {
 				error = 'Weather data not available';
 			}
@@ -116,7 +114,11 @@
 	id={isCurrentLocation ? 'current-weather-info' : 'additional-weather-info'}
 	style={backgroundColor ? `background-color: ${backgroundColor}` : ''}
 >
-	{#if weatherInfo}
+	{#if loading}
+		Loading weather data...
+	{:else if error}
+		{error}
+	{:else}
 		<div class="weather-info weather-title">
 			<span>{isCurrentLocation ? 'Current Location' : 'Selected Location'}</span>
 			{#if !isCurrentLocation}
@@ -127,18 +129,14 @@
 			<img src={weatherIconUrl} alt="weather icon" class="weather-icon" />
 			<span>{weatherDescription}</span>
 			<img src={windIconUrl} alt="wind icon" class="weather-icon" />
-			<span>{weatherInfo.windspeed} km/h</span>
+			<span>{windspeed} km/h</span>
 		</div>
 		<div class="weather-content">
 			<img src={tempIconUrl} alt="temperature icon" class="weather-icon" />
-			<span>{weatherInfo.temperature}°C</span>
+			<span>{temperature}°C</span>
 			<img src={elevationIconUrl} alt="elevation icon" class="weather-icon" />
-			<span>{weatherInfo.elevation} m</span>
+			<span>{elevation} m</span>
 		</div>
-	{:else if error}
-		{error}
-	{:else}
-		"Loading weather data..."
 	{/if}
 </div>
 

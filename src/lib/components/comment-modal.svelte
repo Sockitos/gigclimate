@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 
 	let open = false;
@@ -24,22 +25,37 @@
 	on:click|self={() => (open = false)}
 >
 	<div class="modal-content">
-		<h2>Share Couriers Stories</h2>
-		<p>
-			&#x2022; How do you use this platform in your daily food delivery work?
-			<br />&#x2022; How does weather data impact your choices during the day?
-			<br />&#x2022; How has information on drinking water points, fountains, malls, parks, and gardens been beneficial to you?
-			<br />&#x2022; Have you tagged locations offering shelter for food couriers? If so, please share your experiences.
-			<br />&#x2022; Why might you hesitate to tag and comment on places during a heatwave?
-		</p>
-		<textarea
-			id="comment-text"
-			placeholder="The above questions are for reference. Please share your suggestions on using this platform in 250 characters or less."
-			maxlength="250"
-			bind:value={comment}
-		></textarea>
-		<button id="comment-cancel-btn" on:click={() => (open = false)}>Cancel</button>
-		<button id="comment-send-btn" on:click={postComment}>Send</button>
+		<form
+			method="post"
+			action="?/postComment"
+			use:enhance={() => {
+				return async ({ result }) => {
+					if (result.type === 'success') {
+						open = false;
+					}
+				};
+			}}
+		>
+			<h2>Share Couriers Stories</h2>
+			<p>
+				&#x2022; How do you use this platform in your daily food delivery work?
+				<br />&#x2022; How does weather data impact your choices during the day?
+				<br />&#x2022; How has information on drinking water points, fountains, malls, parks, and
+				gardens been beneficial to you?
+				<br />&#x2022; Have you tagged locations offering shelter for food couriers? If so, please
+				share your experiences.
+				<br />&#x2022; Why might you hesitate to tag and comment on places during a heatwave?
+			</p>
+			<textarea
+				id="comment-text"
+				name="comment"
+				placeholder="The above questions are for reference. Please share your suggestions on using this platform in 250 characters or less."
+				maxlength="250"
+				bind:value={comment}
+			></textarea>
+			<button id="comment-cancel-btn" type="button" on:click={() => (open = false)}>Cancel</button>
+			<button id="comment-send-btn" type="submit">Send</button>
+		</form>
 	</div>
 </div>
 

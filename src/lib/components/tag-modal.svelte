@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { enhance } from '$app/forms';
 	import type { Point } from '$lib/types';
 
 	export let open = false;
@@ -8,19 +8,6 @@
 	let name = '';
 	let comment = '';
 	let images: FileList;
-
-	async function postTag() {
-		const { error } = await $page.data.supabase.from('tags').insert([
-			{
-				lat: location.lat,
-				lon: location.lon,
-				title: name,
-				comment: comment,
-				images: []
-			}
-		]);
-		open = false;
-	}
 </script>
 
 <div
@@ -31,23 +18,36 @@
 	on:click|self={() => (open = false)}
 >
 	<div class="modal-content">
-		<input
-			type="text"
-			id="tag-name"
-			placeholder="Tag Name (Max. 5 words)"
-			maxlength="50"
-			bind:value={name}
-		/>
-		<textarea
-			id="tag-comment"
-			placeholder="Type your comments, thought, inspirations, whatever here (Max. 50 words)"
-			maxlength="250"
-			bind:value={comment}
-		></textarea>
-		<input type="file" bind:files={images} id="tag-images" accept="image/*" multiple />
-		<div class="image-preview" id="image-preview"></div>
-		<button id="cancel-btn" on:click={() => (open = false)}>Cancel</button>
-		<button id="send-btn" on:click={postTag}>Send</button>
+		<form method="post" enctype="multipart/form-data" action="?/postTag" use:enhance>
+			<input type="hidden" name="lat" value={location.lat} />
+			<input type="hidden" name="lon" value={location.lon} />
+			<input
+				type="text"
+				id="tag-name"
+				name="title"
+				placeholder="Tag Name (Max. 5 words)"
+				maxlength="50"
+				bind:value={name}
+			/>
+			<textarea
+				id="tag-comment"
+				name="comment"
+				placeholder="Type your comments, thought, inspirations, whatever here (Max. 50 words)"
+				maxlength="250"
+				bind:value={comment}
+			></textarea>
+			<input
+				type="file"
+				name="images"
+				bind:files={images}
+				id="tag-images"
+				accept="image/*"
+				multiple
+			/>
+			<div class="image-preview" id="image-preview"></div>
+			<button id="cancel-btn" type="button" on:click={() => (open = false)}>Cancel</button>
+			<button id="send-btn" type="submit">Send</button>
+		</form>
 	</div>
 </div>
 
