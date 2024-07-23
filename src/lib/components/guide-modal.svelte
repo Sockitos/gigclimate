@@ -21,16 +21,15 @@
 	const guidePages = [
 		{
 			img: 'guide1.png',
-			subtitle:
-				'The GigClimate platform is an early-stage technology exploration created by IST researchers. It aims to understand how food couriers collaborate and tackle extreme weather conditions together. We do not collect any private information. By using this platform, you agree to share tags, comments, and pictures with the community and research team. This platform is non-commercial and open to everyone.'
+			subtitle: 'GigClimate explores how food couriers in Lisbon collaborate and handle extreme weather.'
 		},
 		{
-			img: 'guide_img_2.png',
-			subtitle: 'How to Collaborate and Combat Extreme Weather Conditions Together'
+			img: 'guide2.png',
+			subtitle: 'GigClimate explores how food couriers in Lisbon collaborate and handle extreme weather.'
 		},
 		{
-			img: 'guide_img_3.png',
-			subtitle: 'How to Collaborate and Combat Extreme Weather Conditions Together'
+			img: 'guide3.png',
+			subtitle: 'GigClimate explores how food couriers in Lisbon collaborate and handle extreme weather.'
 		}
 	];
 </script>
@@ -38,8 +37,8 @@
 <button id="guide-button" aria-label="Guide" on:click={() => (open = true)}></button>
 <div id="guide-modal" class:hidden={!open} class:flex={open} on:click|self={() => (open = false)}>
 	<div class="modal-content">
-		<h2 id="guide-title">Gig Climate</h2>
-		<h3 id="guide-subtitle">{guidePages[currentPage].subtitle}</h3>
+		<h2 id="guide-title">GigClimate Guide</h2>
+		<h3 id="guide-subtitle">{guidePages[currentPage].subtitle} Check our <a href="https://docs.google.com/document/d/1RNxEvITQQbYddN-qhdV9RHWxs1F9zvhgsAD0GapVTJY/edit?usp=sharing" target="_blank">Terms of Use</a> and <a href="https://docs.google.com/document/d/1VNTlhNBg6_JZ0c_m-HxjXqKZDR9TNqt9Mu3IQEC20Qg/edit?usp=sharing" target="_blank">Privacy Policy</a></h3>
 		<img id="guide-img" src={guidePages[currentPage].img} alt="guide img" />
 		<div class="button-container">
 			<button id="prev-btn" disabled={prevDisabled} on:click={prevPage}>Last</button>
@@ -87,12 +86,12 @@
 	}
 
 	#guide-modal .modal-content h2 {
-		font-size: 24px;
+		font-size: 16px;
 		margin-bottom: 10px;
 	}
 
 	#guide-modal .modal-content h3 {
-		font-size: 18px;
+		font-size: 12px;
 		margin-bottom: 20px;
 	}
 
