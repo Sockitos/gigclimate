@@ -96,6 +96,14 @@
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	}
 
+	#comment-modal .modal-content h2 {
+		font-size: 16px;
+	}
+
+	#comment-modal .modal-content h3 {
+		font-size: 12px;
+	}
+
 	#comment-text {
 		width: 100%;
 		height: 80px;

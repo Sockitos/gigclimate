@@ -63,16 +63,16 @@
 	}
 
 	#community-modal .modal-content h2 {
-		font-size: 24px;
+		font-size: 16px;
 		margin-bottom: 10px;
 	}
 
 	#community-modal .modal-content h3 {
-		font-size: 18px;
+		font-size: 12px;
 		margin-bottom: 20px;
 	}
 
-	/* 社区统计样式 */
+	/* community achievement */
 	#community-stats {
 		display: flex;
 		flex-direction: column;
@@ -87,8 +87,8 @@
 	}
 
 	.community-stat img {
-		width: 24px;
-		height: 24px;
+		width: 32px;
+		height: 32px;
 		margin-right: 10px;
 	}
 

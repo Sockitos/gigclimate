@@ -109,7 +109,7 @@
 	}
 
 	#send-btn {
-		background-color: #4caf50;
+		background-color: #3D97EA;
 		color: white;
 	}
 

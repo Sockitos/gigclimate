@@ -15,11 +15,11 @@
 	{#if tags.length > 0}
 		<div id="tag-list">
 			{#each tags as tag}
-				<b>{tag.title}</b><br />{tag.comment}<br />
+				<b class="tag-name">{tag.title}</b>{tag.comment}
 				{#each tag.images as image}
 					<img
 						src={$page.data.supabase.storage.from('images').getPublicUrl(image).data.publicUrl}
-						style="width: 100px; height: auto;"
+						style="width: 50%; height: auto;"
 					/>
 				{/each}
 			{/each}
@@ -39,7 +39,7 @@
 		width: 100%;
 		background-color: white;
 		border-top: 1px solid #ccc;
-		padding: 10px 20px;
+		padding: 5px 20px;
 		display: flex;
 		flex-direction: column; /* 改为垂直布局 */
 		justify-content: flex-start; /* 调整内容在容器中的位置 */
@@ -51,22 +51,28 @@
 	#tag-title {
 		font-size: 18px;
 		font-weight: bold;
-		padding: 10px;
-		background-color: #f9f9f9;
-		border: 1px solid #ddd;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		background-color: #ffffff;
+		border: 1px solid #ffffff;
 		box-sizing: border-box;
-		margin-bottom: 10px; /* 与下方元素之间的间距 */
 	}
 
 	#tag-list {
-		max-height: 150px; /* 调整标签列表的最大高度 */
+		max-height: 200px; /* 调整标签列表的最大高度 */
 		overflow-y: auto;
 		width: 100%;
-		background: #f9f9f9;
-		border: 1px solid #ddd;
-		padding: 10px;
-		margin-bottom: 10px; /* 与按钮之间的间距 */
+		background: #ffffff;
+		border-top: 2px solid #ddd;
+		margin-bottom: 16px; /* 与按钮之间的间距 */
 		box-sizing: border-box; /* 使元素内边距和边框包含在宽度和高度内 */
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.tag-name {
+		margin-top: 16px;
 	}
 
 	#no-tags {
@@ -81,7 +87,7 @@
 
 	#add-tags-btn {
 		padding: 10px 20px;
-		background-color: #4caf50;
+		background-color: #3D97EA;
 		color: white;
 		border: none;
 		border-radius: 4px;
