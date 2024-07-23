@@ -65,7 +65,7 @@
 		};
 
 		const timestamp = new Date().getTime();
-		const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${params.latitude}&longitude=${params.longitude}&current_weather=true&timezone=${params.timezone}`;
+		const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${params.latitude}&longitude=${params.longitude}&current_weather=true&timezone=${params.timezone}&_=${timestamp}`;
 
 		function fetchElevation(lat: number, lon: number) {
 			const url = `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
