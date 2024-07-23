@@ -67,7 +67,7 @@
 		width: 48px;
 		height: 48px;
 		border: none;
-		background: url('../static/comment.png') no-repeat center center;
+		background: url('static/comment.png') no-repeat center center;
 		background-size: contain;
 		cursor: pointer;
 		z-index: 1000;
