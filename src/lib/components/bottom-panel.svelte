@@ -94,10 +94,10 @@
 		cursor: pointer;
 		width: 100%; /* 按钮占满宽度 */
 		box-sizing: border-box; /* 使元素内边距和边框包含在宽度和高度内 */
+		font-size: 16px;
 	}
 
 	#add-tags-btn:hover {
 		background-color: #45a049;
-		font-size: 16px;
 	}
 </style>
