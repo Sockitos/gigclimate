@@ -189,7 +189,7 @@ export const load = async (event) => {
 };
 
 export const actions = {
-	postTag: async (event) => {
+	tag: async (event) => {
 		async function uploadImage(image: File): Promise<{ path: string; error: StorageError | null }> {
 			const fileExt = image.name.split('.').pop();
 			const filePath = `${uuidv4()}.${fileExt}`;
@@ -234,7 +234,7 @@ export const actions = {
 
 		return { success: true };
 	},
-	postComment: async (event) => {
+	comment: async (event) => {
 		const data = await event.request.formData();
 		const comment = data.get('comment');
 

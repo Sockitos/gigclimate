@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { Point, Tag } from '$lib/types';
 	import TagModal from './tag-modal.svelte';
 
@@ -15,9 +16,12 @@
 		<div id="tag-list">
 			{#each tags as tag}
 				<b>{tag.title}</b><br />{tag.comment}<br />
-				{#if tag.images.length > 0}
-					<img src={tag.images[0]} style="width: 100px; height: auto;" />
-				{/if}
+				{#each tag.images as image}
+					<img
+						src={$page.data.supabase.storage.from('images').getPublicUrl(image).data.publicUrl}
+						style="width: 100px; height: auto;"
+					/>
+				{/each}
 			{/each}
 		</div>
 	{:else}
