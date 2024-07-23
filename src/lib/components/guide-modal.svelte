@@ -55,7 +55,7 @@
 		width: 48px;
 		height: 48px;
 		border: none;
-		background: url('https://mashuhao.me/wp-content/uploads/2024/06/guide.png') no-repeat center
+		background: url('guide.png') no-repeat center
 			center; /* Replace with your icon */
 		background-size: contain;
 		cursor: pointer;

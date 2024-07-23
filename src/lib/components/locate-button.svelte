@@ -40,7 +40,7 @@
 		width: 48px;
 		height: 48px;
 		border: none;
-		background: url('https://mashuhao.me/wp-content/uploads/2024/06/locateMe.png') no-repeat center
+		background: url('locateMe.png') no-repeat center
 			center;
 		background-size: contain;
 		cursor: pointer;

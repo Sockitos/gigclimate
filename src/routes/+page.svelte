@@ -108,9 +108,9 @@
 						on:click={(e) => handleMarkerClick(e, 'Created by Food Couriers')}
 					>
 						<Icon
-							iconUrl="https://mashuhao.me/wp-content/uploads/2024/06/usertags-1.png"
+							iconUrl="courier-tag.png"
 							options={{
-								iconSize: [40, 40],
+								iconSize: [32, 32],
 								popupAnchor: [1, -34],
 								zIndexOffset: -999999
 							}}
@@ -124,9 +124,9 @@
 						on:click={(e) => handleMarkerClick(e, 'Drinking Water Point')}
 					>
 						<Icon
-							iconUrl="https://mashuhao.me/wp-content/uploads/2024/06/drinkingwater-2.png"
+							iconUrl="drinkingwater.png"
 							options={{
-								iconSize: [36, 36],
+								iconSize: [32, 32],
 								popupAnchor: [1, -10]
 							}}
 						/>
@@ -139,9 +139,9 @@
 						on:click={(e) => handleMarkerClick(e, 'Fountain')}
 					>
 						<Icon
-							iconUrl="https://mashuhao.me/wp-content/uploads/2024/06/fountain-1.png"
+							iconUrl="fountain.png"
 							options={{
-								iconSize: [36, 36],
+								iconSize: [32, 32],
 								popupAnchor: [1, -10]
 							}}
 						/>
@@ -154,9 +154,9 @@
 						on:click={(e) => handleMarkerClick(e, 'Mall')}
 					>
 						<Icon
-							iconUrl="https://mashuhao.me/wp-content/uploads/2024/06/shoppingmall-1.png"
+							iconUrl="shoppingmall.png"
 							options={{
-								iconSize: [36, 36],
+								iconSize: [32, 32],
 								popupAnchor: [1, -10]
 							}}
 						/>
