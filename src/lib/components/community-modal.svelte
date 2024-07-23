@@ -17,7 +17,7 @@
 		<h3 id="community-subtitle">Food Couriers in Lisbon Have Created</h3>
 		<div id="community-stats">
 			<div class="community-stat">
-				<img src="https://mashuhao.me/wp-content/uploads/2024/06/usertags-1.png" alt="Tags Icon" />
+				<img src="courier-tag.png" alt="Tags Icon" />
 				<span>Tags: {tagCount}</span>
 			</div>
 		</div>

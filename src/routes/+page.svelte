@@ -130,7 +130,7 @@
 						<Icon
 							iconUrl="courier-tag.png"
 							options={{
-								iconSize: [32, 32],
+								iconSize: [36, 36],
 								popupAnchor: [1, -34],
 								zIndexOffset: -999999
 							}}
