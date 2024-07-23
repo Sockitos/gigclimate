@@ -24,17 +24,17 @@
 	on:click|self={() => (open = false)}
 >
 	<div class="modal-content">
-		<h2>Share Your Stories and Suggestions</h2>
+		<h2>Share Couriers Stories</h2>
 		<p>
-			&#x2022; How do you use this platform?
-			<br />&#x2022; Is weather data helpful for you?
-			<br />&#x2022; Do you find the data provided by this platform beneficial?
-			<br />&#x2022; Have you participated in community building, such as tagging locations that
-			help food couriers stay cool?
+			&#x2022; How do you use this platform in your daily food delivery work?
+			<br />&#x2022; How does weather data impact your choices during the day?
+			<br />&#x2022; How has information on drinking water points, fountains, malls, parks, and gardens been beneficial to you?
+			<br />&#x2022; Have you tagged locations offering shelter for food couriers? If so, please share your experiences.
+			<br />&#x2022; Why might you hesitate to tag and comment on places during a heatwave?
 		</p>
 		<textarea
 			id="comment-text"
-			placeholder="Type your feedback here (Max. 50 words)"
+			placeholder="The above questions are for reference. Please share your suggestions on using this platform in 250 characters or less."
 			maxlength="250"
 			bind:value={comment}
 		></textarea>
@@ -83,6 +83,7 @@
 
 	#comment-text {
 		width: 100%;
+		height: 80px;
 		padding: 10px;
 		margin: 10px 0;
 		border: 1px solid #ccc;
