@@ -26,8 +26,8 @@
 >
 	<div class="modal-content">
 		<form
-			method="post"
-			action="?/postComment"
+			method="POST"
+			action="?/comment"
 			use:enhance={() => {
 				return async ({ result }) => {
 					if (result.type === 'success') {

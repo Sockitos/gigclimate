@@ -18,7 +18,7 @@
 	on:click|self={() => (open = false)}
 >
 	<div class="modal-content">
-		<form method="post" enctype="multipart/form-data" action="?/postTag" use:enhance>
+		<form method="POST" enctype="multipart/form-data" action="?/tag" use:enhance>
 			<input type="hidden" name="lat" value={location.lat} />
 			<input type="hidden" name="lon" value={location.lon} />
 			<input
@@ -44,7 +44,13 @@
 				accept="image/*"
 				multiple
 			/>
-			<div class="image-preview" id="image-preview"></div>
+			<div class="image-preview" id="image-preview">
+				{#if images}
+					{#each Array.from(images) as image}
+						<img src={URL.createObjectURL(image)} alt="preview" />
+					{/each}
+				{/if}
+			</div>
 			<button id="cancel-btn" type="button" on:click={() => (open = false)}>Cancel</button>
 			<button id="send-btn" type="submit">Send</button>
 		</form>
