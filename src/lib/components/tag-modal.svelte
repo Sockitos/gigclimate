@@ -88,10 +88,20 @@
 		border-radius: 4px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	}
-	#tag-name,
+
 	#tag-comment {
 		width: 100%;
 		height: 80px;
+		padding: 10px;
+		margin: 10px 0;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	#tag-name {
+		width: 100%;
+		height: 40px;
 		padding: 10px;
 		margin: 10px 0;
 		border: 1px solid #ccc;
