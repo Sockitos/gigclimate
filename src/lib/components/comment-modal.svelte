@@ -6,12 +6,7 @@
 
 	let comment = '';
 
-	async function postComment() {
-		const { error } = await $page.data.supabase.from('comments').insert([
-			{
-				comment: comment
-			}
-		]);
+	$: if ($page.form?.success) {
 		open = false;
 	}
 </script>
@@ -25,17 +20,7 @@
 	on:click|self={() => (open = false)}
 >
 	<div class="modal-content">
-		<form
-			method="POST"
-			action="?/comment"
-			use:enhance={() => {
-				return async ({ result }) => {
-					if (result.type === 'success') {
-						open = false;
-					}
-				};
-			}}
-		>
+		<form method="POST" action="?/comment" use:enhance>
 			<h2>Share Couriers Stories</h2>
 			<p>
 				&#x2022; How do you use this platform in your daily food delivery work?
@@ -67,7 +52,8 @@
 		width: 48px;
 		height: 48px;
 		border: none;
-		background: url('https://mashuhao.me/wp-content/uploads/2024/07/comment.png') no-repeat center center;
+		background: url('https://mashuhao.me/wp-content/uploads/2024/07/comment.png') no-repeat center
+			center;
 		background-size: contain;
 		cursor: pointer;
 		z-index: 1000;
