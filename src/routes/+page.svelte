@@ -50,12 +50,28 @@
 	}
 
 	$: if (selectedLocation) {
-		selectedLocationTags = data.tags.filter(
-			(tag) => tag.lat === selectedLocation?.lat && tag.lon === selectedLocation?.lon
-		);
+	selectedLocationTags = data.tags.filter((tag) => {
+		const distance = calculateDistance(selectedLocation, { lat: tag.lat, lon: tag.lon });
+		return distance <= 0.01; // tolerance
+	});
 	} else {
-		selectedLocationTags = [];
+	selectedLocationTags = [];
 	}
+
+	function calculateDistance(point1: Point, point2: Point): number {
+		const R = 6371; // earth
+		const dLat = (point2.lat - point1.lat) * Math.PI / 180;
+		const dLon = (point2.lon - point1.lon) * Math.PI / 180;
+		const lat1 = point1.lat * Math.PI / 180;
+		const lat2 = point2.lat * Math.PI / 180;
+
+		const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+		return R * c; // distance
+	}
+
 
 	function handleMapClick(e: CustomEvent) {
 		selectedLocation = { lat: e.detail.latlng.lat, lon: e.detail.latlng.lng };
@@ -64,9 +80,21 @@
 	}
 
 	function handleMarkerClick(e: CustomEvent, label: string) {
-		selectedLocation = { lat: e.detail.latlng.lat, lon: e.detail.latlng.lng };
+		const clickedLocation = { lat: e.detail.latlng.lat, lon: e.detail.latlng.lng };
+		const tolerance = 0.01; // tolerance range
+
+		selectedLocation = findNearbyLocation(clickedLocation, tolerance);
 		selectedLocationLabel = label;
 		map.getMap()?.setView([selectedLocation.lat, selectedLocation.lon]);
+	}
+
+	function findNearbyLocation(clickedLocation: Point, tolerance: number): Point {
+		let nearbyLocation: Point | undefined = clickedLocation;
+		selectedLocationTags = data.tags.filter((tag) => {
+			const distance = calculateDistance(clickedLocation, { lat: tag.lat, lon: tag.lon });
+			return distance <= tolerance;
+		});
+		return nearbyLocation;
 	}
 </script>
 
