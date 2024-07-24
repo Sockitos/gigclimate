@@ -68,7 +68,7 @@ export const actions = {
 			return fail(500, { message: 'Error adding tag' });
 		}
 
-		return { success: true };
+		return { success: true, message: 'Tag added' };
 	},
 	comment: async (event) => {
 		const data = await event.request.formData();
@@ -88,6 +88,6 @@ export const actions = {
 			return fail(500, { message: 'Error adding comment' });
 		}
 
-		return { success: true };
+		return { success: true, message: 'Comment submitted' };
 	}
 };

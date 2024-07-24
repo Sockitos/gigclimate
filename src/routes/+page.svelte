@@ -19,6 +19,7 @@
 	import 'leaflet/dist/leaflet.css';
 	import { onMount } from 'svelte';
 	import { GeoJSON, Icon, LeafletMap, Marker, TileLayer } from 'svelte-leafletjs?client';
+	import { toast } from 'svelte-sonner';
 
 	export let data;
 	export let form;
@@ -41,6 +42,14 @@
 	let selectedLocationLabel: string | undefined;
 	let selectedLocationTags: Tag[] = [];
 
+	$: if (form?.success !== undefined) {
+		if (form.success) {
+			toast.success(form?.message ?? 'Success');
+		} else {
+			toast.error(form?.message ?? 'Error');
+		}
+	}
+
 	$: uniqueTags = data.tags.filter(
 		(tag, index, self) => index === self.findIndex((t) => t.lat === tag.lat && t.lon === tag.lon)
 	);
@@ -50,28 +59,28 @@
 	}
 
 	$: if (selectedLocation) {
-	selectedLocationTags = data.tags.filter((tag) => {
-		const distance = calculateDistance(selectedLocation, { lat: tag.lat, lon: tag.lon });
-		return distance <= 0.01; // tolerance
-	});
+		selectedLocationTags = data.tags.filter((tag) => {
+			const distance = calculateDistance(selectedLocation!, { lat: tag.lat, lon: tag.lon });
+			return distance <= 0.01; // tolerance
+		});
 	} else {
-	selectedLocationTags = [];
+		selectedLocationTags = [];
 	}
 
 	function calculateDistance(point1: Point, point2: Point): number {
 		const R = 6371; // earth
-		const dLat = (point2.lat - point1.lat) * Math.PI / 180;
-		const dLon = (point2.lon - point1.lon) * Math.PI / 180;
-		const lat1 = point1.lat * Math.PI / 180;
-		const lat2 = point2.lat * Math.PI / 180;
+		const dLat = ((point2.lat - point1.lat) * Math.PI) / 180;
+		const dLon = ((point2.lon - point1.lon) * Math.PI) / 180;
+		const lat1 = (point1.lat * Math.PI) / 180;
+		const lat2 = (point2.lat * Math.PI) / 180;
 
-		const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-				Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+		const a =
+			Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+			Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
 		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
 		return R * c; // distance
 	}
-
 
 	function handleMapClick(e: CustomEvent) {
 		selectedLocation = { lat: e.detail.latlng.lat, lon: e.detail.latlng.lng };
