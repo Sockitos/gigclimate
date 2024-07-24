@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
 	import type { Point } from '$lib/types';
 
 	export let open = false;
@@ -8,6 +9,10 @@
 	let name = '';
 	let comment = '';
 	let images: FileList;
+
+	$: if ($page.form?.success) {
+		open = false;
+	}
 </script>
 
 <div
@@ -37,15 +42,15 @@
 				bind:value={comment}
 			></textarea>
 			<div class="image-upload">
-			<input
-				type="file"
-				name="images"
-				bind:files={images}
-				id="tag-images"
-				accept="image/*"
-				multiple
-			/>
-			<p class="image-upload-hint">optional, max 2 images.</p>
+				<input
+					type="file"
+					name="images"
+					bind:files={images}
+					id="tag-images"
+					accept="image/*"
+					multiple
+				/>
+				<p class="image-upload-hint">optional, max 2 images.</p>
 			</div>
 			<div class="image-preview" id="image-preview">
 				{#if images}
@@ -113,7 +118,7 @@
 	}
 
 	#send-btn {
-		background-color: #3D97EA;
+		background-color: #3d97ea;
 		color: white;
 	}
 
@@ -130,7 +135,7 @@
 		border-radius: 4px;
 		border: 1px solid #ccc;
 	}
-	
+
 	.image-upload {
 		display: flex;
 		flex-direction: column;
@@ -142,5 +147,4 @@
 		color: gray;
 		text-align: left;
 	}
-
 </style>
