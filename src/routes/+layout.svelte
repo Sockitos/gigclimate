@@ -3,5 +3,5 @@
 	import '../app.css';
 </script>
 
-<Toaster position="top-center" />
+<Toaster position="top-center" toastOptions={{ duration: 2000 }} />
 <slot />
