@@ -25,17 +25,18 @@
 				type="text"
 				id="tag-name"
 				name="title"
-				placeholder="Tag Name (Max. 5 words)"
+				placeholder="Tag Name is required (Max. 5 words)."
 				maxlength="50"
 				bind:value={name}
 			/>
 			<textarea
 				id="tag-comment"
 				name="comment"
-				placeholder="Type your comments, thought, inspirations, whatever here (Max. 50 words)"
+				placeholder="Comment is required. Type your comments, thought, inspirations, whatever here (Max. 50 words)"
 				maxlength="250"
 				bind:value={comment}
 			></textarea>
+			<div class="image-upload">
 			<input
 				type="file"
 				name="images"
@@ -44,6 +45,8 @@
 				accept="image/*"
 				multiple
 			/>
+			<p class="image-upload-hint">optional, max 2 images.</p>
+			</div>
 			<div class="image-preview" id="image-preview">
 				{#if images}
 					{#each Array.from(images) as image}
@@ -83,6 +86,7 @@
 	#tag-name,
 	#tag-comment {
 		width: 100%;
+		height: 80px;
 		padding: 10px;
 		margin: 10px 0;
 		border: 1px solid #ccc;
@@ -91,7 +95,7 @@
 	}
 
 	#tag-images {
-		margin: 10px 0;
+		margin-top: 10px;
 	}
 
 	#cancel-btn,
@@ -126,4 +130,17 @@
 		border-radius: 4px;
 		border: 1px solid #ccc;
 	}
+	
+	.image-upload {
+		display: flex;
+		flex-direction: column;
+		align-items: left;
+	}
+
+	.image-upload-hint {
+		font-size: 12px;
+		color: gray;
+		text-align: left;
+	}
+
 </style>
