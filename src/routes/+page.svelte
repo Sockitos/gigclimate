@@ -156,7 +156,7 @@
 							options={{
 								iconSize: [36, 36],
 								popupAnchor: [1, -34],
-								zIndexOffset: -999999
+								zIndexOffset: -100
 							}}
 						/>
 					</Marker>
@@ -171,7 +171,8 @@
 							iconUrl="drinkingwater.png"
 							options={{
 								iconSize: [32, 32],
-								popupAnchor: [1, -10]
+								popupAnchor: [1, -10],
+								zIndexOffset: -100
 							}}
 						/>
 					</Marker>
@@ -186,7 +187,8 @@
 							iconUrl="fountain.png"
 							options={{
 								iconSize: [32, 32],
-								popupAnchor: [1, -10]
+								popupAnchor: [1, -10],
+								zIndexOffset: -100
 							}}
 						/>
 					</Marker>
@@ -201,7 +203,8 @@
 							iconUrl="shoppingmall.png"
 							options={{
 								iconSize: [32, 32],
-								popupAnchor: [1, -10]
+								popupAnchor: [1, -10],
+								zIndexOffset: -100
 							}}
 						/>
 					</Marker>
@@ -213,7 +216,7 @@
 							options={{
 								iconSize: [36, 36],
 								popupAnchor: [0, -16],
-								zIndexOffset: 999999
+								zIndexOffset: 1000
 							}}
 						/>
 					</Marker>
@@ -229,7 +232,7 @@
 								shadowUrl:
 									'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 								shadowSize: [41, 41],
-								zIndexOffset: 999999
+								zIndexOffset: 2000
 							}}
 						/>
 					</Marker>
