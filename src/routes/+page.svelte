@@ -41,10 +41,6 @@
 	let selectedLocationLabel: string | undefined;
 	let selectedLocationTags: Tag[] = [];
 
-	$: if (form?.success) {
-		selectedLocation = undefined;
-	}
-
 	$: uniqueTags = data.tags.filter(
 		(tag, index, self) => index === self.findIndex((t) => t.lat === tag.lat && t.lon === tag.lon)
 	);
