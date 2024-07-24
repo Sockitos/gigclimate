@@ -42,10 +42,12 @@
 	let selectedLocationLabel: string | undefined;
 	let selectedLocationTags: Tag[] = [];
 
-	$: if (form?.success) {
-		toast.success(form?.message ?? 'Success');
-	} else {
-		toast.error(form?.message ?? 'Error');
+	$: if (form) {
+    if (form.success) {
+        toast.success(form.message ?? 'Success');
+    } else {
+        toast.error(form.message ?? 'Error');
+    }
 	}
 
 	$: uniqueTags = data.tags.filter(

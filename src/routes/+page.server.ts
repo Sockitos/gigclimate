@@ -45,7 +45,7 @@ export const actions = {
 		const images = data.getAll('images');
 
 		if (!lat || !lon || !title || !comment || !images) {
-			return fail(400, { message: 'All fields are required' });
+			return fail(400, { message: 'Tag name and comment are required' });
 		}
 
 		const nonEmptyImages = images.filter((image) => (image as File).size > 0);
