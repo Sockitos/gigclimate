@@ -61,7 +61,7 @@
 	$: if (selectedLocation) {
 		selectedLocationTags = data.tags.filter((tag) => {
 			const distance = calculateDistance(selectedLocation!, { lat: tag.lat, lon: tag.lon });
-			return distance <= 0.01; // tolerance
+			return distance <= 0.001; // tolerance
 		});
 	} else {
 		selectedLocationTags = [];
@@ -90,7 +90,7 @@
 
 	function handleMarkerClick(e: CustomEvent, label: string) {
 		const clickedLocation = { lat: e.detail.latlng.lat, lon: e.detail.latlng.lng };
-		const tolerance = 0.01; // tolerance range
+		const tolerance = 0.001; // tolerance range
 
 		selectedLocation = findNearbyLocation(clickedLocation, tolerance);
 		selectedLocationLabel = label;
