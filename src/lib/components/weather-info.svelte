@@ -15,10 +15,10 @@
 
 	$: backgroundColor = temperature ? getBackgroundColor(temperature) : undefined;
 
-	const weatherIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/06/sunny.png'; // 替换为实际的天气图标URL
-	const windIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/06/wind.png'; // 替换为实际的风速图标URL
-	const tempIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/06/temp.png'; // 替换为实际的温度图标URL
-	const elevationIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/06/elevation.png'; // 替换为实际的海拔图标URL
+	const weatherIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/07/sunny.png';
+	const windIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/07/wind.png'; 
+	const tempIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/07/temp.png'; 
+	const elevationIconUrl = 'https://mashuhao.me/wp-content/uploads/2024/07/elevation.png'; 
 
 	const weatherCodeMapping: { [key: number]: string } = {
 		0: 'Clear sky',
