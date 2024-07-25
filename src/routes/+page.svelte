@@ -17,6 +17,8 @@
 	import type { Point, Tag } from '$lib/types';
 	import type { FeatureCollection } from 'geojson';
 	import 'leaflet/dist/leaflet.css';
+	import 'leaflet.markercluster/dist/MarkerCluster.css';
+	import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 	import { onMount } from 'svelte';
 	import { GeoJSON, Icon, LeafletMap, Marker, TileLayer } from 'svelte-leafletjs?client';
 	import { toast } from 'svelte-sonner';
