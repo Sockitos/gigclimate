@@ -16,9 +16,9 @@
 	} from '$lib/overpass';
 	import type { Point, Tag } from '$lib/types';
 	import type { FeatureCollection } from 'geojson';
-	import 'leaflet/dist/leaflet.css';
 	import 'leaflet.markercluster/dist/MarkerCluster.css';
 	import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+	import 'leaflet/dist/leaflet.css';
 	import { onMount } from 'svelte';
 	import { GeoJSON, Icon, LeafletMap, Marker, TileLayer } from 'svelte-leafletjs?client';
 	import { toast } from 'svelte-sonner';
@@ -45,11 +45,11 @@
 	let selectedLocationTags: Tag[] = [];
 
 	$: if (form) {
-    if (form.success) {
-        toast.success(form.message ?? 'Success');
-    } else {
-        toast.error(form.message ?? 'Error');
-    }
+		if (form.success) {
+			toast.success(form.message ?? 'Success');
+		} else {
+			toast.error(form.message ?? 'Error');
+		}
 	}
 
 	$: uniqueTags = data.tags.filter(
@@ -65,6 +65,12 @@
 			const distance = calculateDistance(selectedLocation!, { lat: tag.lat, lon: tag.lon });
 			return distance <= 0.001; // tolerance
 		});
+		if (
+			selectedLocationTags.length !== 0 &&
+			selectedLocationLabel === 'No Tags Here! Creat the First!'
+		) {
+			selectedLocationLabel = 'Created by Food Couriers';
+		}
 	} else {
 		selectedLocationTags = [];
 	}
