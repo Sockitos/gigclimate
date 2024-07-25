@@ -18,49 +18,55 @@ export async function getWaterPoints(): Promise<Point[]> {
 }
 
 export async function getFountainPoints(): Promise<Point[]> {
-	const overpassUrl =
+	const nwrUrl =
 		'https://overpass-api.de/api/interpreter?data=[out:json];nwr["amenity"="fountain"](38.6,-9.3,38.8,-9.0);out body;>;out skel qt;';
+	const nodeUrl =
+		'https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"="fountain"](38.6,-9.3,38.8,-9.0);out body;>;out skel qt;';
 
 	try {
 		const points: Point[] = [];
-		const nodes: { [key: string]: Point } = {};
-		const ways: {
+
+		// Fetch and process data from the nwr URL
+		const nwrResponse = await fetch(nwrUrl);
+		const nwrData = await nwrResponse.json();
+
+		const nwrNodes: { [key: string]: Point } = {};
+		const nwrWays: {
 			id: string;
 			nodes: string[];
 		}[] = [];
 
-		const response = await fetch(overpassUrl);
-		const data = await response.json();
-
-		// 遍历数据，先处理节点
-		data.elements.forEach((element) => {
+		nwrData.elements.forEach((element) => {
 			if (element.type === 'node') {
-				nodes[element.id] = {
+				nwrNodes[element.id] = {
 					lat: element.lat,
 					lon: element.lon
 				};
 			} else if (element.type === 'way') {
-				ways.push(element);
+				nwrWays.push(element);
 			} else if (element.type === 'relation') {
 				// 处理关系，提取成员
 				element.members.forEach((member: { type: string; ref: string }) => {
-					if (member.type === 'node' && nodes[member.ref]) {
-						points.push(nodes[member.ref]);
-					} else if (member.type === 'way' && nodes[member.ref]) {
-						const center = calculateCenter(ways.find((w) => w.id === member.ref)!, nodes);
-						if (center) {
-							points.push({
-								lat: center.lat,
-								lon: center.lon
-							});
+					if (member.type === 'node' && nwrNodes[member.ref]) {
+						points.push(nwrNodes[member.ref]);
+					} else if (member.type === 'way') {
+						const way = nwrWays.find((w) => w.id === member.ref);
+						if (way) {
+							const center = calculateCenter(way, nwrNodes);
+							if (center) {
+								points.push({
+									lat: center.lat,
+									lon: center.lon
+								});
+							}
 						}
 					}
 				});
 			}
 		});
 
-		ways.forEach((way) => {
-			const center = calculateCenter(way, nodes);
+		nwrWays.forEach((way) => {
+			const center = calculateCenter(way, nwrNodes);
 			if (center) {
 				points.push({
 					lat: center.lat,
@@ -68,56 +74,78 @@ export async function getFountainPoints(): Promise<Point[]> {
 				});
 			}
 		});
+
+		// Fetch and process data from the node URL
+		const nodeResponse = await fetch(nodeUrl);
+		const nodeData = await nodeResponse.json();
+
+		nodeData.elements.forEach((element) => {
+			if (element.type === 'node') {
+				points.push({
+					lat: element.lat,
+					lon: element.lon
+				});
+			}
+		});
+
 		return points;
 	} catch {
 		return [];
 	}
 }
 
+
+
 export async function getShoppingMalls(): Promise<Point[]> {
-	const overpassUrl =
+	const nwrUrl =
 		'https://overpass-api.de/api/interpreter?data=[out:json];nwr["shop"="mall"](38.6,-9.3,38.8,-9.0);out body;>;out skel qt;';
+	const nodeUrl =
+		'https://overpass-api.de/api/interpreter?data=[out:json];node["shop"="mall"](38.6,-9.3,38.8,-9.0);out body;>;out skel qt;';
 
 	try {
 		const points: Point[] = [];
-		const nodes: { [key: string]: Point } = {};
-		const ways: {
+
+		// Fetch and process data from the nwr URL
+		const nwrResponse = await fetch(nwrUrl);
+		const nwrData = await nwrResponse.json();
+
+		const nwrNodes: { [key: string]: Point } = {};
+		const nwrWays: {
 			id: string;
 			nodes: string[];
 		}[] = [];
 
-		const response = await fetch(overpassUrl);
-		const data = await response.json();
-
-		// 遍历数据，先处理节点
-		data.elements.forEach((element) => {
+		nwrData.elements.forEach((element) => {
 			if (element.type === 'node') {
-				nodes[element.id] = {
+				nwrNodes[element.id] = {
 					lat: element.lat,
 					lon: element.lon
 				};
 			} else if (element.type === 'way') {
-				ways.push(element);
+				nwrWays.push(element);
 			} else if (element.type === 'relation') {
 				// 处理关系，提取成员
 				element.members.forEach((member: { type: string; ref: string }) => {
-					if (member.type === 'node' && nodes[member.ref]) {
-						points.push(nodes[member.ref]);
-					} else if (member.type === 'way' && nodes[member.ref]) {
-						const center = calculateCenter(ways.find((w) => w.id === member.ref)!, nodes);
-						if (center) {
-							points.push({
-								lat: center.lat,
-								lon: center.lon
-							});
+					if (member.type === 'node' && nwrNodes[member.ref]) {
+						points.push(nwrNodes[member.ref]);
+					} else if (member.type === 'way') {
+						const way = nwrWays.find((w) => w.id === member.ref);
+						if (way) {
+							const center = calculateCenter(way, nwrNodes);
+							if (center) {
+								points.push({
+									lat: center.lat,
+									lon: center.lon
+								});
+							}
 						}
 					}
 				});
 			}
 		});
 
-		ways.forEach((way) => {
-			const center = calculateCenter(way, nodes);
+		nwrWays.forEach((way) => {
+			const center = calculateCenter(way, nwrNodes);
 			if (center) {
 				points.push({
 					lat: center.lat,
@@ -125,6 +153,20 @@ export async function getShoppingMalls(): Promise<Point[]> {
 				});
 			}
 		});
+
+		// Fetch and process data from the node URL
+		const nodeResponse = await fetch(nodeUrl);
+		const nodeData = await nodeResponse.json();
+
+		nodeData.elements.forEach((element) => {
+			if (element.type === 'node') {
+				points.push({
+					lat: element.lat,
+					lon: element.lon
+				});
+			}
+		});
+
 		return points;
 	} catch {
 		return [];
