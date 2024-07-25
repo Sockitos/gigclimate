@@ -98,16 +98,11 @@
 
 	function handleMarkerClick(e: CustomEvent, label: string) {
 		const clickedLocation = { lat: e.detail.latlng.lat, lon: e.detail.latlng.lng };
-    const tolerance = 0.001; // tolerance range
-    const offset = -0.004; // move distance
+		const tolerance = 0.001; // tolerance range
 
-    selectedLocation = findNearbyLocation(clickedLocation, tolerance);
-    selectedLocationLabel = label;
-    
-    // move top
-    const adjustedLocation = { lat: selectedLocation.lat + offset, lon: selectedLocation.lon };
-
-    map.getMap()?.setView([adjustedLocation.lat, adjustedLocation.lon]);
+		selectedLocation = findNearbyLocation(clickedLocation, tolerance);
+		selectedLocationLabel = label;
+		map.getMap()?.setView([selectedLocation.lat, selectedLocation.lon]);
 	}
 
 	function findNearbyLocation(clickedLocation: Point, tolerance: number): Point {
