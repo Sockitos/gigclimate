@@ -173,7 +173,7 @@
 							options={{
 								iconSize: [36, 36],
 								popupAnchor: [1, -34],
-								zIndexOffset: -100
+								zIndexOffset: -200
 							}}
 						/>
 					</Marker>
@@ -189,7 +189,7 @@
 							options={{
 								iconSize: [32, 32],
 								popupAnchor: [1, -10],
-								zIndexOffset: -100
+								zIndexOffset: 500
 							}}
 						/>
 					</Marker>
@@ -205,7 +205,7 @@
 							options={{
 								iconSize: [32, 32],
 								popupAnchor: [1, -10],
-								zIndexOffset: -100
+								zIndexOffset: 500
 							}}
 						/>
 					</Marker>
@@ -221,7 +221,7 @@
 							options={{
 								iconSize: [32, 32],
 								popupAnchor: [1, -10],
-								zIndexOffset: -100
+								zIndexOffset: 500
 							}}
 						/>
 					</Marker>
