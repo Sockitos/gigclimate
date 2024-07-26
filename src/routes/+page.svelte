@@ -142,7 +142,7 @@
 					url={'https://api.mapbox.com/styles/v1/shma/clxdu7t5q001f01qr8n636xcj/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2htYSIsImEiOiJjbHhkcjZiMjAwN25xMmpzYjg0ZGQyY3BpIn0.UtN1_cDX7aPI3EtN6ta8rg'}
 					options={{
 						maxZoom: 19,
-						minZoom: 14,
+						minZoom: 13,
 						tileSize: 512,
 						zoomOffset: -1,
 						id: 'shma/clxdu7t5q001f01qr8n636xcj',
