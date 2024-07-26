@@ -162,22 +162,6 @@
 						}
 					}}
 				/>
-				{#each uniqueTags as tag}
-					<Marker
-						latLng={[tag.lat, tag.lon]}
-						events={['click']}
-						on:click={(e) => handleMarkerClick(e, 'Created by Food Couriers')}
-					>
-						<Icon
-							iconUrl="courier-tag.png"
-							options={{
-								iconSize: [36, 36],
-								popupAnchor: [1, -34],
-								zIndexOffset: -200
-							}}
-						/>
-					</Marker>
-				{/each}
 				{#each waterPoints as point}
 					<Marker
 						latLng={[point.lat, point.lon]}
@@ -222,6 +206,22 @@
 								iconSize: [32, 32],
 								popupAnchor: [1, -10],
 								zIndexOffset: 500
+							}}
+						/>
+					</Marker>
+				{/each}
+				{#each uniqueTags as tag}
+					<Marker
+						latLng={[tag.lat, tag.lon]}
+						events={['click']}
+						on:click={(e) => handleMarkerClick(e, 'Created by Food Couriers')}
+					>
+						<Icon
+							iconUrl="courier-tag.png"
+							options={{
+								iconSize: [36, 36],
+								popupAnchor: [1, -34],
+								zIndexOffset: -200
 							}}
 						/>
 					</Marker>
